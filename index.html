@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Ibrohim Nasution - Portofolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icon Library (untuk hamburger menu & ikon skill) -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          // Kunci API Anda telah dimasukkan
+          emailjs.init({
+            publicKey: "eaWFZlTNnd3hEa6yH",
+          });
+       })();
+    </script>
+
+    <script>
+        // Konfigurasi Tailwind kustom
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        'brand-bg': '#020024', // Latar belakang gelap futuristik
+                        'brand-glass': 'rgba(255, 255, 255, 0.05)',
+                        'brand-glass-light': 'rgba(255, 255, 255, 0.1)',
+                        'brand-purple': '#a855f7', // Ungu lembut
+                        'brand-blue': '#3b82f6',   // Biru muda
+                        'brand-light': '#f0f4f8',  // Teks putih keabuan
+                    },
+                    backdropBlur: {
+                        'lg': '20px',
+                    },
+                    animation: {
+                        'glow': 'glow 4s linear infinite',
+                        'bubble': 'bubble 0.5s ease-out forwards',
+                        'fade-in': 'fade-in 1s ease-out forwards',
+                        'fade-out': 'fade-out 1s ease-out forwards 1s', // Delay 1s
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%, 100%': { boxShadow: '0 0 10px #3b82f6, 0 0 20px #3b82f6' },
+                            '50%': { boxShadow: '0 0 20px #a855f7, 0 0 30px #a855f7' },
+                        },
+                        bubble: {
+                            '0%': { transform: 'scale(0.8) translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'scale(1) translateY(0)', opacity: '1' },
+                        },
+                        'fade-in': {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        'fade-out': {
+                            'from': { opacity: '1' },
+                            'to': { opacity: '0', visibility: 'hidden' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Efek Glassmorphism Kustom */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Helper untuk Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scrollbar styling (opsional, tapi menambah kesan) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020024;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(#3b82f6, #a855f7);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(#a855f7, #3b82f6);
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-light font-poppins relative overflow-x-hidden">
+
+    <!-- 1. Animasi Loading -->
+    <div id="loader" class="fixed inset-0 bg-brand-bg z-[100] flex flex-col items-center justify-center animate-fade-out pointer-events-none">
+        <div class="text-4xl font-black text-white animate-pulse">MI</div>
+        <p class="text-brand-light mt-2">Loading portfolio...</p>
+    </div>
+
+    <!-- 2. Background SVG Matematika -->
+    <div class="fixed inset-0 z-[-1] opacity-10 overflow-hidden">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#a855f7" stroke-width="0.5"/>
+                </pattern>
+                <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+                    <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.3" />
+                </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+            <!-- Animasi gelombang sinus -->
+            <path d="M -10,100 Q 100,10 200,100 T 400,100 T 600,100 T 800,100 T 1000,100 T 1200,100 T 1400,100 T 1600,100 T 1800,100 T 2000,100" 
+                  stroke="url(#glowGradient)" stroke-width="2" fill="none" class="animate-pulse" />
+            <path d="M -10,300 Q 100,210 200,300 T 400,300 T 600,300 T 800,300 T 1000,300 T 1200,300 T 1400,300 T 1600,300 T 1800,300 T 2000,300" 
+                  stroke="url(#glowGradient)" stroke-width="2" fill="none" class="animate-pulse" />
+        </svg>
+    </div>
+
+    <!-- 3. Header & Navigasi -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-effect transition-all duration-300">
+        <nav class="container mx-auto max-w-7xl px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-3xl font-black text-white hover:text-brand-blue transition-colors">
+                MI
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-brand-light hover:text-white transition-colors">About</a>
+                <a href="#experience" class="text-brand-light hover:text-white transition-colors">Experience</a>
+                <a href="#projects" class="text-brand-light hover:text-white transition-colors">Projects</a>
+                <a href="#publications" class="text-brand-light hover:text-white transition-colors">Publications</a>
+                <a href="#certifications" class="text-brand-light hover:text-white transition-colors">Certifications</a>
+                <a href="#contact" class="text-brand-light hover:text-white transition-colors">Contact</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-white text-3xl z-50">
+                <ion-icon name="menu-outline"></ion-icon>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-brand-bg/90 backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 text-2xl transform translate-x-full transition-transform duration-300 md:hidden">
+            <a href="#home" class="text-white hover:text-brand-blue transition-colors mobile-link">Home</a>
+            <a href="#about" class="text-white hover:text-brand-blue transition-colors mobile-link">About</a>
+            <a href="#experience" class="text-white hover:text-brand-blue transition-colors mobile-link">Experience</a>
+            <a href="#projects" class="text-white hover:text-brand-blue transition-colors mobile-link">Projects</a>
+            <a href="#publications" class="text-white hover:text-brand-blue transition-colors mobile-link">Publications</a>
+            <a href="#certifications" class="text-white hover:text-brand-blue transition-colors mobile-link">Certifications</a>
+            <a href="#contact" class="text-white hover:text-brand-blue transition-colors mobile-link">Contact</a>
+        </div>
+    </header>
+
+    <!-- Wrapper Konten Utama -->
+    <main class="container mx-auto max-w-7xl px-6 z-10 relative">
+
+        <!-- 4. Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center py-20 md:py-0">
+            <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
+                <div class="text-center md:text-left animate-fade-in">
+                    <h1 class="text-5xl md:text-7xl font-black text-white leading-tight">
+                        Muhammad Ibrohim Nasution
+                    </h1>
+                    <p class="text-xl md:text-2xl text-brand-light mt-4 font-inter bg-clip-text text-transparent bg-gradient-to-r from-brand-blue to-brand-purple">
+                        Merging Mathematics, Technology, and Creativity to Empower Indonesia
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#projects" class="px-8 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-brand-blue to-brand-purple hover:from-brand-purple hover:to-brand-blue transition-all duration-300 shadow-lg hover:shadow-brand-blue/50 transform hover:scale-105">
+                            View My Projects
+                        </a>
+                        <a href="#contact" class="px-8 py-3 rounded-lg font-semibold text-white bg-brand-glass border border-brand-light/20 hover:bg-brand-light/10 transition-colors duration-300 transform hover:scale-105">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center animate-fade-in" style="animation-delay: 0.3s;">
+                    <!-- Placeholder untuk foto profil -->
+                    <div class="w-72 h-72 md:w-96 md:h-96 rounded-full glass-effect p-4 relative animate-glow">
+                        <img src="https://placehold.co/400x400/e0e0e0/333333?text=Profil" alt="Foto Profil Muhammad Ibrohim Nasution" class="rounded-full w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wrapper untuk Section Lainnya -->
+        <div class="flex flex-col gap-24 md:gap-32">
+
+            <!-- 5. About Me -->
+            <section id="about" class="reveal">
+                <div class="glass-effect rounded-2xl p-8 md:p-12">
+                    <h2 class="text-4xl font-black text-white mb-8 text-center">About Me</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                        <div class="md:col-span-2 text-lg text-brand-light space-y-4">
+                            <p>
+                                Mahasiswa Matematika di Universitas Negeri Medan, dengan fokus pada persimpangan antara
+                                <strong>analisis data, AI, dan web development</strong> berbasis matematika.
+                            </p>
+                            <p>
+                                Aktif sebagai <strong>Google Student Ambassador</strong>, <strong>Duta Literasi Keuangan Bank Syariah Indonesia</strong>,
+                                dan <strong>Populix Campus Ambassador</strong>, saya berdedikasi untuk menjembatani teknologi
+                                dengan kebutuhan komunitas.
+                            </p>
+                        </div>
+                        <div class="md:col-span-1 glass-effect rounded-lg p-6 border-l-4 border-brand-purple italic">
+                            <p class="text-lg text-white">"Data is the new oil, but insight is the fire that drives innovation."</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Experience & Organizations -->
+            <section id="experience" class="reveal">
+                <h2 class="text-4xl font-black text-white mb-12 text-center">Experience & Organizations</h2>
+                <div class="relative max-w-5xl mx-auto"> <!-- Melebarkan max-w sedikit untuk gambar -->
+                    <!-- Garis Waktu Vertikal -->
+                    <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand-blue to-brand-purple transform -translate-x-1/2 hidden md:block"></div>
+
+                    <!-- Item 1: Google Student Ambassador -->
+                    <div class="mb-12 flex flex-col md:flex-row items-center w-full">
+                        <div class="w-full md:w-1/2 md:pr-10 md:text-right reveal">
+                            <div class="glass-effect p-6 rounded-lg shadow-xl">
+                                <h3 class="text-xl font-bold text-white">Google Student Ambassador</h3>
+                                <p class="text-brand-light text-sm mt-1">Sep 2025 - Sekarang</p>
+                                <p class="text-brand-light mt-3">Menginisiasi 2 workshop AI research, menjangkau 1.000+ audiens melalui konten edukasi.</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-brand-blue border-4 border-brand-bg shadow-lg absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex items-center justify-center"></div>
+                        <div class="w-full md:w-1/2 md:pl-10 mt-4 md:mt-0 reveal">
+                            <!-- Placeholder Gambar -->
+                            <div class="glass-effect rounded-lg p-2">
+                                <img src="https://placehold.co/400x225/3b82f6/f0f4f8?text=Google+Event" alt="Google Student Ambassador" class="rounded-md w-full h-48 object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Duta Literasi Keuangan BSI -->
+                    <div class="mb-12 flex flex-col md:flex-row items-center w-full">
+                        <div class="w-full md:w-1/2 md:pr-10 mt-4 md:mt-0 md:order-2 md:pl-10">
+                            <div class="glass-effect p-6 rounded-lg shadow-xl reveal">
+                                <h3 class="text-xl font-bold text-white">Duta Literasi Keuangan BSI</h3>
+                                <p class="text-brand-light text-sm mt-1">Okt 2025 - Sekarang</p>
+                                <p class="text-brand-light mt-3">Berkolaborasi strategis dengan OJK untuk pengembangan materi dan kampanye literasi keuangan syariah.</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-brand-purple border-4 border-brand-bg shadow-lg absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex items-center justify-center"></div>
+                        <div class="w-full md:w-1/2 md:pr-10 mt-4 md:mt-0 md:order-1 md:text-right reveal">
+                            <!-- Placeholder Gambar -->
+                            <div class="glass-effect rounded-lg p-2">
+                                <img src="https://placehold.co/400x225/a855f7/f0f4f8?text=BSI+Campaign" alt="Duta Literasi Keuangan BSI" class="rounded-md w-full h-48 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3: HMI FMIPA UNIMED -->
+                    <div class="mb-12 flex flex-col md:flex-row items-center w-full">
+                        <div class="w-full md:w-1/2 md:pr-10 md:text-right reveal">
+                            <div class="glass-effect p-6 rounded-lg shadow-xl">
+                                <h3 class="text-xl font-bold text-white">HMI FMIPA UNIMED (Div. Pendidikan & Sains)</h3>
+                                <p class="text-brand-light text-sm mt-1">2023 - 2025</p>
+                                <p class="text-brand-light mt-3">Mengeksekusi 3 program kerja pendidikan & sains, serta memfasilitasi 6+ diskusi ilmiah.</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-brand-blue border-4 border-brand-bg shadow-lg absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex items-center justify-center"></div>
+                        <div class="w-full md:w-1/2 md:pl-10 mt-4 md:mt-0 reveal">
+                            <!-- Placeholder Gambar -->
+                            <div class="glass-effect rounded-lg p-2">
+                                <img src="https://placehold.co/400x225/3b82f6/f0f4f8?text=HMI+Diskusi" alt="HMI FMIPA UNIMED" class="rounded-md w-full h-48 object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: PKM Sanggar Seni -->
+                    <div class="mb-12 flex flex-col md:flex-row items-center w-full">
+                        <div class="w-full md:w-1/2 md:pr-10 mt-4 md:mt-0 md:order-2 md:pl-10">
+                            <div class="glass-effect p-6 rounded-lg shadow-xl reveal">
+                                <h3 class="text-xl font-bold text-white">PKM Sanggar Seni</h3>
+                                <p class="text-brand-light text-sm mt-1">Jul 2025</p>
+                                <p class="text-brand-light mt-3">Mengembangkan katalog digital dan memberi pelatihan teknologi untuk 20 anggota sanggar.</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-brand-purple border-4 border-brand-bg shadow-lg absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex items-center justify-center"></div>
+                        <div class="w-full md:w-1/2 md:pr-10 mt-4 md:mt-0 md:order-1 md:text-right reveal">
+                            <!-- Placeholder Gambar -->
+                            <div class="glass-effect rounded-lg p-2">
+                                <img src="https://placehold.co/400x225/a855f7/f0f4f8?text=PKM+Sanggar" alt="PKM Sanggar Seni" class="rounded-md w-full h-48 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Projects Section -->
+            <section id="projects" class="reveal">
+                <h2 class="text-4xl font-black text-white mb-12 text-center">My Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Project Card 1 -->
+                    <a href="https://batikfraktal.github.io/Drawtik/" target="_blank" rel="noopener noreferrer" class="block glass-effect rounded-xl overflow-hidden group transform transition-all duration-300 hover:scale-105 hover:shadow-brand-blue/40 hover:shadow-2xl reveal">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-white">Drawtik (Batik Fraktal Generator)</h3>
+                            <p class="text-brand-light mt-2">Aplikasi web untuk menghasilkan desain batik menggunakan konsep matematika fraktal.</p>
+                            <span class="inline-block mt-4 text-brand-blue font-semibold group-hover:underline">Lihat Proyek &rarr;</span>
+                        </div>
+                    </a>
+                    <!-- Project Card 2 -->
+                    <a href="https://batik-simetri.github.io/Batik_Frieze-Kristalografi/" target="_blank" rel="noopener noreferrer" class="block glass-effect rounded-xl overflow-hidden group transform transition-all duration-300 hover:scale-105 hover:shadow-brand-purple/40 hover:shadow-2xl reveal">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-white">Batik Frieze-Kristalografi Web</h3>
+                            <p class="text-brand-light mt-2">Web interaktif untuk desain motif batik berbasis simetri Frieze dan Kristalografi.</p>
+                            <span class="inline-block mt-4 text-brand-blue font-semibold group-hover:underline">Lihat Proyek &rarr;</span>
+                        </div>
+                    </a>
+                    <!-- Project Card 3 -->
+                    <a href="https://ibrohim-afk.github.io/gemini_Notifikasi/" target="_blank" rel="noopener noreferrer" class="block glass-effect rounded-xl overflow-hidden group transform transition-all duration-300 hover:scale-105 hover:shadow-brand-blue/40 hover:shadow-2xl reveal">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-white">Gemini Notifikasi System</h3>
+                            <p class="text-brand-light mt-2">Sistem pendaftaran otomatis terintegrasi Google Sheets dan notifikasi API WhatsApp.</p>
+                            <span class="inline-block mt-4 text-brand-blue font-semibold group-hover:underline">Lihat Proyek &rarr;</span>
+                        </div>
+                    </a>
+                    <!-- Project Card 4 -->
+                    <a href="https://ibrohim-afk.github.io/AgriDecide_Pro/" target="_blank" rel="noopener noreferrer" class="block glass-effect rounded-xl overflow-hidden group transform transition-all duration-300 hover:scale-105 hover:shadow-brand-purple/40 hover:shadow-2xl reveal">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-white">AgriDecide Pro (SPK Agribisnis)</h3>
+                            <p class="text-brand-light mt-2">Sistem Pendukung Keputusan (SPK) web untuk agribisnis menggunakan algoritma Teori Keputusan.</p>
+                            <span class="inline-block mt-4 text-brand-blue font-semibold group-hover:underline">Lihat Proyek &rarr;</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 8. Publications -->
+            <section id="publications" class="reveal">
+                <h2 class="text-4xl font-black text-white mb-12 text-center">Publications</h2>
+                <div class="space-y-6 max-w-4xl mx-auto">
+                    <div class="glass-effect rounded-lg p-6 reveal">
+                        <h3 class="text-xl font-semibold text-white">Transformasi Seni Tradisional ke Era Digital: Penerapan Konsep Fraktal dalam Desain Batik Berbasis Website.</h3>
+                        <p class="text-brand-light mt-2 italic">Jurnal Transformasi, 2024</p>
+                    </div>
+                    <div class="glass-effect rounded-lg p-6 reveal">
+                        <h3 class="text-xl font-semibold text-white">Pengembangan Aplikasi Web Interaktif untuk Desain Motif Batik Berbasis Simetri Frieze dan Kristalografi.</h3>
+                        <p class="text-brand-light mt-2 italic">Jurnal MathVision, 2025</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Achievements -->
+            <section id="achievements" class="reveal">
+                <h2 class="text-4xl font-black text-white mb-12 text-center">Achievements</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="glass-effect p-4 rounded-lg reveal">
+                        <p class="text-white font-semibold">Beasiswa Bank Syariah Indonesia Batch 4</p>
+                    </div>
+                    <div class="glass-effect p-4 rounded-lg reveal">
+                        <p class="text-white font-semibold">Semi Final Duta CBP Bank Indonesia</p>
+                    </div>
+                    <div class="glass-effect p-4 rounded-lg reveal">
+                        <p class="text-white font-semibold">Medali Perunggu OSN Kemerdekaan</p>
+                    </div>
+                    <div class="glass-effect p-4 rounded-lg reveal">
+                        <p class="text-white font-semibold">Juara 3 Matematika SMP</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9.5. Licenses & Certifications (NEW SECTION) -->
+            <section id="certifications" class="reveal">
+                <h2 class="text-4xl font-black text-white mb-12 text-center">Licenses & Certifications</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+                    <!-- Kiri: DQ LAB -->
+                    <div class="glass-effect p-6 rounded-lg reveal">
+                        <div class="flex items-center gap-3 mb-4">
+                            <ion-icon name="school-outline" class="text-4xl text-brand-blue"></ion-icon>
+                            <h3 class="text-3xl font-bold text-white">DQ LAB</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <a href="https://academy.dqlab.id/certificate/pdf/DQLABMB8EXCBBMOHP" target="_blank" rel="noopener noreferrer" 
+                               class="flex justify-between items-center bg-brand-light/5 p-4 rounded-lg transition-all duration-300 hover:bg-brand-light/10 hover:shadow-lg">
+                                <div>
+                                    <p class="font-semibold text-white">Study Case Bootcamp Data Analyst with Excel</p>
+                                    <p class="text-sm text-brand-light">Des 2024</p>
+                                </div>
+                                <ion-icon name="open-outline" class="text-brand-light ml-2"></ion-icon>
+                            </a>
+                            <a href="https://academy.dqlab.id/Certificate_check/result/DQLABMB8SPQDWTTL/NONTRACK#mycertificate" target="_blank" rel="noopener noreferrer" 
+                               class="flex justify-between items-center bg-brand-light/5 p-4 rounded-lg transition-all duration-300 hover:bg-brand-light/10 hover:shadow-lg">
+                                <div>
+                                    <p class="font-semibold text-white">Study Case Bootcamp Data Analyst with SQL & Python</p>
+                                    <p class="text-sm text-brand-light">Sep 2024</p>
+                                </div>
+                                <ion-icon name="open-outline" class="text-brand-light ml-2"></ion-icon>
+                            </a>
+                            <a href="https://academy.dqlab.id/certificate/pdf/DQLABMB8MAIAOECET" target="_blank" rel="noopener noreferrer" 
+                               class="flex justify-between items-center bg-brand-light/5 p-4 rounded-lg transition-all duration-300 hover:bg-brand-light/10 hover:shadow-lg">
+                                <div>
+                                    <p class="font-semibold text-white">Study Case Bootcamp Machine learning & AI for Beginner</p>
+                                    <p class="text-sm text-brand-light">Okt 2025</p>
+                                </div>
+                                <ion-icon name="open-outline" class="text-brand-light ml-2"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Kanan: GOOGLE -->
+                    <div class="glass-effect p-6 rounded-lg reveal">
+                        <div class="flex items-center gap-3 mb-4">
+                            <ion-icon name="logo-google" class="text-4xl text-brand-purple"></ion-icon>
+                            <h3 class="text-3xl font-bold text-white">GOOGLE</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <a href="https://edu.google.accredible.com/b5e3a489-50ce-4003-9b63-f5f109a23739" target="_blank" rel="noopener noreferrer" 
+                               class="flex justify-between items-center bg-brand-light/5 p-4 rounded-lg transition-all duration-300 hover:bg-brand-light/10 hover:shadow-lg">
+                                <div>
+                                    <p class="font-semibold text-white">Gemini Certified Educator</p>
+                                </div>
+                                <ion-icon name="open-outline" class="text-brand-light ml-2"></ion-icon>
+                            </a>
+                            <a href="https://edu.google.accredible.com/85a554a9-cf7a-44ad-a823-c19f23696c9c" target="_blank" rel="noopener noreferrer" 
+                               class="flex justify-between items-center bg-brand-light/5 p-4 rounded-lg transition-all duration-300 hover:bg-brand-light/10 hover:shadow-lg">
+                                <div>
+                                    <p class="font-semibold text-white">Gemini Certified University Student</p>
+                                    <p class="text-sm text-brand-light">Okt 2025</p>
+                                </div>
+                                <ion-icon name="open-outline" class="text-brand-light ml-2"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 10. Skills Section -->
+            <section id="skills" class="reveal">
+                <h2 class="text-4xl font-black text-white mb-12 text-center">Skills</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Data & AI -->
+                    <div class="glass-effect p-6 rounded-lg reveal">
+                        <ion-icon name="analytics-outline" class="text-4xl text-brand-blue mb-3"></ion-icon>
+                        <h3 class="text-2xl font-bold text-white mb-4">Data & AI</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Python</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">SQL</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Excel</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Machine Learning</span>
+                        </div>
+                    </div>
+                    <!-- Web -->
+                    <div class="glass-effect p-6 rounded-lg reveal">
+                        <ion-icon name="code-slash-outline" class="text-4xl text-brand-purple mb-3"></ion-icon>
+                        <h3 class="text-2xl font-bold text-white mb-4">Web Development</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">HTML</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">CSS</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">JavaScript</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">TailwindCSS</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">API Integration</span>
+                        </div>
+                    </div>
+                    <!-- Design -->
+                    <div class="glass-effect p-6 rounded-lg reveal">
+                        <ion-icon name="color-palette-outline" class="text-4xl text-brand-blue mb-3"></ion-icon>
+                        <h3 class="text-2xl font-bold text-white mb-4">Design</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Canva</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">CapCut</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Alight Motion</span>
+                        </div>
+                    </div>
+                    <!-- Soft Skills -->
+                    <div class="glass-effect p-6 rounded-lg reveal">
+                        <ion-icon name="people-outline" class="text-4xl text-brand-purple mb-3"></ion-icon>
+                        <h3 class="text-2xl font-bold text-white mb-4">Soft Skills</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Leadership</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Communication</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Research</span>
+                            <span class="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-sm">Problem Solving</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. Contact Section -->
+            <section id="contact" class="pb-24 reveal">
+                <h2 class="text-4xl font-black text-white mb-12 text-center">Get In Touch</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Info Kontak -->
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4 group">
+                            <ion-icon name="mail-outline" class="text-3xl text-brand-blue group-hover:scale-110 transition-transform"></ion-icon>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Email</h4>
+                                <a href="mailto:4231230002@mhs.unimed.ac.id" class="text-brand-light hover:text-brand-blue transition-colors">4231230002@mhs.unimed.ac.id</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 group">
+                            <ion-icon name="logo-whatsapp" class="text-3xl text-brand-blue group-hover:scale-110 transition-transform"></ion-icon>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">WhatsApp</h4>
+                                <a href="https://wa.me/6285762824951" target="_blank" class="text-brand-light hover:text-brand-blue transition-colors">+62 857-6282-4951</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 group">
+                            <ion-icon name="logo-linkedin" class="text-3xl text-brand-blue group-hover:scale-110 transition-transform"></ion-icon>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">LinkedIn</h4>
+                                <a href="https://www.linkedin.com/in/muhammad-ibrohim-nasution-638891390" target="_blank" class="text-brand-light hover:text-brand-blue transition-colors">Muhammad Ibrohim Nasution</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Kontak -->
+                    <form id="contact-form" class="space-y-6 relative">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-brand-light mb-1">Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg bg-brand-glass border border-brand-light/20 focus:outline-none focus:ring-2 focus:ring-brand-blue text-white" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-brand-light mb-1">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg bg-brand-glass border border-brand-light/20 focus:outline-none focus:ring-2 focus:ring-brand-blue text-white" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-brand-light mb-1">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-lg bg-brand-glass border border-brand-light/20 focus:outline-none focus:ring-2 focus:ring-brand-blue text-white" required></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="w-full px-8 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-brand-blue to-brand-purple hover:from-brand-purple hover:to-brand-blue transition-all duration-300 shadow-lg hover:shadow-brand-blue/50 transform hover:scale-105 disabled:opacity-50">
+                            Send Message
+                        </button>
+
+                        <!-- Notifikasi AI Bubble -->
+                        <div id="form-notification" class="hidden absolute -bottom-20 left-0 animate-bubble">
+                            <div id="notification-content" class="relative bg-gradient-to-r from-brand-blue to-brand-purple text-white p-4 rounded-lg rounded-bl-none shadow-2xl">
+                                <p id="notification-text" class="text-sm">Thanks for reaching out! I'll get back to you soon.</p>
+                                <!-- Segitiga bubble -->
+                                <div id="notification-arrow" class="absolute left-0 -bottom-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-brand-blue"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-brand-light/10 mt-16">
+        <div class="container mx-auto max-w-7xl px-6 py-8 text-center text-brand-light">
+            <p>&copy; <span id="current-year"></span> Muhammad Ibrohim Nasution. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set Tahun Sekarang di Footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('translate-x-full');
+                // Ganti ikon
+                const icon = menuBtn.querySelector('ion-icon');
+                if (mobileMenu.classList.contains('translate-x-full')) {
+                    icon.setAttribute('name', 'menu-outline');
+                } else {
+                    icon.setAttribute('name', 'close-outline');
+                }
+            });
+
+            // Tutup menu saat link di-klik
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                    menuBtn.querySelector('ion-icon').setAttribute('name', 'menu-outline');
+                });
+            });
+
+            // Scroll Reveal
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        // observer.unobserve(entry.target); // Hapus komentar jika ingin animasi hanya sekali
+                    } else {
+                         entry.target.classList.remove('reveal-visible'); // Tambahkan ini jika ingin animasi berulang
+                    }
+                });
+            }, {
+                threshold: 0.1 // Muncul saat 10% elemen terlihat
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            // Notifikasi Form Kontak (Menggunakan EmailJS)
+            const contactForm = document.getElementById('contact-form');
+            const notification = document.getElementById('form-notification');
+            const notificationContent = document.getElementById('notification-content');
+            const notificationText = document.getElementById('notification-text');
+            const notificationArrow = document.getElementById('notification-arrow');
+            const submitBtn = document.getElementById('submit-btn');
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Mencegah submit form sungguhan
+                
+                // Ubah teks tombol menjadi "Loading..." dan nonaktifkan
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                // Kunci API Anda telah dimasukkan
+                const serviceID = 'service_g031xcn';
+                const templateID = 'template_zonhwnq';
+
+                emailjs.sendForm(serviceID, templateID, this)
+                    .then(() => {
+                        // --- SUKSES ---
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Message';
+                        
+                        // Tampilkan notifikasi sukses
+                        notificationContent.className = 'relative bg-gradient-to-r from-brand-blue to-brand-purple text-white p-4 rounded-lg rounded-bl-none shadow-2xl';
+                        notificationArrow.className = 'absolute left-0 -bottom-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-brand-blue';
+                        notificationText.textContent = "Thanks for reaching out! I'll get back to you soon.";
+                        notification.classList.remove('hidden');
+                        
+                        // Reset form
+                        contactForm.reset();
+
+                        // Sembunyikan notifikasi setelah 5 detik
+                        setTimeout(() => {
+                            notification.classList.add('hidden');
+                        }, 5000);
+                    }, (err) => {
+                        // --- GAGAL ---
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Message';
+
+                        // Tampilkan notifikasi error (warna merah)
+                        notificationContent.className = 'relative bg-red-600 text-white p-4 rounded-lg rounded-bl-none shadow-2xl';
+                        notificationArrow.className = 'absolute left-0 -bottom-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-red-600';
+                        notificationText.textContent = 'Oops! Error: ' + JSON.stringify(err);
+                        notification.classList.remove('hidden');
+
+                        // Sembunyikan notifikasi setelah 5 detik
+                        setTimeout(() => {
+                            notification.classList.add('hidden');
+                        }, 5000);
+                    });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
